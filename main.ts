@@ -125,9 +125,181 @@ const std_libs: StdLibs[] = [
             link: 'https://github.com/denoland/deno_std/tree/main/collections#aggregategroups'
         },
         {
-            name: '',
-            link: ''
+            name: 'associateBy',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#associateby'
         },
+        {
+            name: 'associateWith',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#associatewith'
+        },
+        {
+            name: 'chunk',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#chunk'
+        },
+        {
+            name: 'deepMerge',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#deepmerge'
+        },
+        {
+            name: 'distinctBy',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#distinctby'
+        },
+        {
+            name: 'distinct',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#distinct'
+        },
+        {
+            name: 'dropWhile',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#dropwhile'
+        },
+        {
+            name: 'dropLastWhile',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#droplastwhile'
+        },
+        {
+            name: 'filterEntries',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#filterentries'
+        },
+        {
+            name: 'filterKeys',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#filterkeys'
+        },
+        {
+            name: 'filterValues',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#filtervalues'
+        },
+        {
+            name: 'findSingle',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#findsingle'
+        },
+        {
+            name: 'firstNotNullishOf',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#firstnotnullishof'
+        },
+        {
+            name: 'groupBy',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#groupby'
+        },
+        {
+            name: 'includesValue',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#includesvalue'
+        },
+        {
+            name: 'intersect',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#intersect'
+        },
+        {
+            name: 'joinToString',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#jointostring'
+        },
+        {
+            name: 'mapEntries',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#mapentries'
+        },
+        {
+            name: 'mapKeys',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#mapkeys'
+        },
+        {
+            name: 'mapNotNullish',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#mapnotnullish'
+        },
+        {
+            name: 'mapValues',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#mapvalues'
+        },
+        {
+            name: 'maxBy',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#maxby'
+        },
+        {
+            name: 'maxOf',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#maxof'
+        },
+        {
+            name: 'maxWith',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#maxwith'
+        },
+        {
+            name: 'minBy',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#minby'
+        },
+        {
+            name: 'minOf',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#minof'
+        },
+        {
+            name: 'minWith',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#minwith'
+        },
+        {
+            name: 'partition',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#partition'
+        },
+        {
+            name: 'permutations',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#permutations'
+        },
+        {
+            name: 'reduceGroups',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#reducegroups'
+        },
+        {
+            name: 'runningReduce',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#runningreduce'
+        },
+        {
+            name: 'sumOf',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#sumof'
+        },
+        {
+            name: 'sample',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#sample'
+        },
+        {
+            name: 'slidingWindows',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#slidingwindows'
+        },
+        {
+            name: 'sortBy',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#sortby'
+        },
+        {
+            name: 'takeLastWhile',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#takelastwhile'
+        },
+        {
+            name: 'takeWhile',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#takewhile'
+        },
+        {
+            name: 'union',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#union'
+        },
+        {
+            name: 'unzip',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#unzip'
+        },
+        {
+            name: 'withoutAll',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#withoutall'
+        },
+        {
+            name: 'zip',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#zip'
+        },
+        {
+            name: 'BinaryHeap',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#binaryheap'
+        },
+        {
+            name: 'BinarySearchTree',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#binarysearchtree'
+        },
+         {
+            name: 'RedBlackTree',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#redblacktree'
+        }
     ]
   }
 ];
