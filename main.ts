@@ -74,6 +74,62 @@ const std_libs: StdLibs[] = [
       },
     ],
   },
+  {
+    name: 'bytes',
+    description: 'Provides helper functions to manipulate Uint8Array byte slices that are not included on the Uint8Array prototype.',
+    topics: [
+      {
+        name: 'concat',
+        link: 'https://doc.deno.land/https://deno.land/std/bytes/mod.ts/~/concat'
+      },
+      {
+        name: 'copy',
+        link: 'https://doc.deno.land/https://deno.land/std/bytes/mod.ts/~/copy'
+      },
+       {
+        name: 'endsWith',
+        link: 'https://doc.deno.land/https://deno.land/std/bytes/mod.ts/~/endsWith'
+      },
+       {
+        name: 'equals',
+        link: 'https://doc.deno.land/https://deno.land/std/bytes/mod.ts/~/equals'
+      },
+       {
+        name: 'includesNeedle',
+        link: 'https://doc.deno.land/https://deno.land/std/bytes/mod.ts/~/includesNeedle'
+      },
+       {
+        name: 'indexOfNeedle',
+        link: 'https://doc.deno.land/https://deno.land/std/bytes/mod.ts/~/indexOfNeedle'
+      },
+       {
+        name: 'lastIndexOfNeedle',
+        link: 'https://doc.deno.land/https://deno.land/std/bytes/mod.ts/~/lastIndexOfNeedle'
+      },
+       {
+        name: 'repeat',
+        link: 'https://doc.deno.land/https://deno.land/std/bytes/mod.ts/~/repeat'
+      },
+       {
+        name: 'startsWith',
+        link: 'https://doc.deno.land/https://deno.land/std/bytes/mod.ts/~/startsWith'
+      },
+    ]
+  },
+  {
+    name: 'collections',
+    description: 'This module includes pure functions for specific common tasks around collection types like Array and Record.',
+    topics: [
+        {
+            name: 'aggregateGroups',
+            link: 'https://github.com/denoland/deno_std/tree/main/collections#aggregategroups'
+        },
+        {
+            name: '',
+            link: ''
+        },
+    ]
+  }
 ];
 
 const random_lib = sample(std_libs);
