@@ -1,4 +1,4 @@
-import { sample } from './deps.ts';
+import { sample, bold, green, blue} from './deps.ts';
 
 
 interface StdLibs {
@@ -304,10 +304,17 @@ const std_libs: StdLibs[] = [
   }
 ];
 
+
 const random_lib = sample(std_libs);
 if(!random_lib) throw Error("No lib found");
 
 const random_topic = sample(random_lib.topics);
+if(!random_topic) throw Error("No topic found");
 
 console.log(random_lib?.name)
 console.log(random_topic?.name)
+
+
+console.log(`\nToday we're going to learn about ${bold(green(random_topic.name))} from the ${bold(blue(random_lib.name))} library.`);
+console.log(`\n${bold(blue(random_lib.name))}: ${random_lib.description}`);
+console.log(`\n${bold(green(random_topic.name))}: ${random_topic.link}\n`)
