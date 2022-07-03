@@ -18,6 +18,10 @@ if(!configs.seeding_completed){
     data.set_seeding_to_complete();
 }
 
+// TODO: add flag to update data
+// TODO: add flag to nuke db
+
+
 const random_topic = data.get_random_topic();
 
 if (!random_topic){
@@ -26,7 +30,10 @@ if (!random_topic){
 }
 
 const std_lib = data.get_lib_from_id(random_topic.lib_id);
-
+if (!std_lib){
+    console.error('Error finding library')
+    Deno.exit(1);
+}
 
 console.log(
   `\n${bold(yellow("Today"))} we're going to learn about ${

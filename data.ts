@@ -13,6 +13,8 @@ interface StdLib{
     description: string;
 }
 
+// TODO: fix typescript types
+
 // TODO: db location in home dir
 export const db = new DB("./db.sqlite");
 
