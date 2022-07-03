@@ -18,8 +18,14 @@ if(!configs.seeding_completed){
     data.set_seeding_to_complete();
 }
 
+globalThis.onunload = (_e: Event): void => {
+  // console.debug(`${e.type} event - let's clean up everything`);
+  if(data.db) data.db.close();
+};
+
+
 // TODO: add flag to update data
-// TODO: add flag to nuke db
+// TODO: add flag to nuke everything, db, directory of files, etc.
 
 
 const random_topic = data.get_random_topic();
@@ -45,4 +51,4 @@ console.log(`\n${bold(green(random_topic.name))}: ${random_topic.link}`);
 console.log(`\n${bold(yellow("Happy learnings!"))}\n`);
 
 data.complete_topic(random_topic.id);
-data.db.close()
+
