@@ -18,14 +18,14 @@ if(!configs.seeding_completed){
     data.set_seeding_to_complete();
 }
 
-const random_topic = await data.get_random_topic();
-console.log(random_topic)
+const random_topic = data.get_random_topic();
+
 if (!random_topic){
     console.log(yellow(bold("\nNo more topics left to learn!\n")))
-    // Deno.exit(0);
+    Deno.exit(0);
 }
 
-const std_lib = await data.get_lib_from_id(random_topic.lib_id);
+const std_lib = data.get_lib_from_id(random_topic.lib_id);
 
 
 console.log(

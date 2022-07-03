@@ -1,7 +1,21 @@
 import { DB } from "./deps.ts";
 
+interface Topic{
+    id: number;
+    name: string;
+    link: string;
+    is_completed: boolean;
+    lib_id: number;
+}
+
+interface StdLib{
+    name: string;
+    description: string;
+}
+
 // TODO: db location in home dir
 export const db = new DB("./db.sqlite");
+
 
 export function init_db() {
     db.execute(`
@@ -43,7 +57,7 @@ export async function seed_topics(){
 }
 
 
-export function get_random_topic(){
+export function get_random_topic(): Topic | undefined {
     for(const [id, name, link, is_completed, lib_id] of db.query(`
         -- get random topic from all libs except the ones we've already seen.
         SELECT
@@ -67,7 +81,7 @@ export function get_random_topic(){
 }
 
 
-export function get_lib_from_id(lib_id: number){
+export function get_lib_from_id(lib_id: number): StdLib | undefined {
     for(const [name, description] of db.query(`
         SELECT
             name,
