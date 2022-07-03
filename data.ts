@@ -1,16 +1,16 @@
 import { DB } from "./deps.ts";
 
-interface Topic{
-    id: number;
-    name: string;
-    link: string;
-    is_completed: boolean;
-    lib_id: number;
+interface Topic {
+  id: number;
+  name: string;
+  link: string;
+  is_completed: boolean;
+  lib_id: number;
 }
 
-interface StdLib{
-    name: string;
-    description: string;
+interface Library {
+  name: string;
+  description: string;
 }
 
 // TODO: fix typescript types
@@ -18,9 +18,8 @@ interface StdLib{
 // TODO: db location in home dir
 export const db = new DB("./db.sqlite");
 
-
 export function init_db() {
-    db.execute(`
+  db.execute(`
         CREATE TABLE IF NOT EXISTS std_libs (
             id INTEGER PRIMARY KEY,
             name TEXT,
@@ -48,19 +47,19 @@ export function init_db() {
     `);
 }
 
-export async function seed_libs(){
-    const sql = await Deno.readTextFile('./seed_libs.sql');
-    db.execute(sql)
+export async function seed_libs() {
+  const sql = await Deno.readTextFile("./seed_libs.sql");
+  db.execute(sql);
 }
 
-export async function seed_topics(){
-    const sql = await Deno.readTextFile('./seed_topics.sql');
-    db.execute(sql)
+export async function seed_topics() {
+  const sql = await Deno.readTextFile("./seed_topics.sql");
+  db.execute(sql);
 }
-
 
 export function get_random_topic(): Topic | undefined {
-    for(const [id, name, link, is_completed, lib_id] of db.query(`
+  for (
+    const [id, name, link, is_completed, lib_id] of db.query(`
         -- get random topic from all libs except the ones we've already seen.
         SELECT
             topics.id,
@@ -76,15 +75,16 @@ export function get_random_topic(): Topic | undefined {
         ORDER BY
             random()
         LIMIT 1;
-    `)){
-        return {id, name, link, is_completed: Boolean(is_completed), lib_id};
-    }
-  
+    `)
+  ) {
+    return { id, name, link, is_completed: Boolean(is_completed), lib_id };
+  }
 }
 
-
-export function get_lib_from_id(lib_id: number): StdLib | undefined {
-    for(const [name, description] of db.query(`
+export function get_lib_from_id(lib_id: number): Library | undefined {
+  for (
+    const [name, description] of db.query(
+      `
         SELECT
             name,
             description
@@ -92,36 +92,44 @@ export function get_lib_from_id(lib_id: number): StdLib | undefined {
             std_libs
         WHERE
             id = ?
-    `, [lib_id])){
-        return {name, description};
-    }
+    `,
+      [lib_id],
+    )
+  ) {
+    return { name, description };
+  }
 }
 
-export function complete_topic(topic_id: number){
-    return db.query(`
+export function complete_topic(topic_id: number) {
+  return db.query(
+    `
         INSERT INTO topics_completed (topic_id, is_completed) VALUES (?, 1)
-    `, [topic_id]);
+    `,
+    [topic_id],
+  );
 }
 
-export function reset_completed_topics(){
-    return db.query(`
+export function reset_completed_topics() {
+  return db.query(`
         DELETE FROM topics_completed
     `);
 }
 
-export function get_configs(){
-    for(const [seeding_completed] of db.query(`
+export function get_configs() {
+  for (
+    const [seeding_completed] of db.query(`
         SELECT
             seeding_completed
         FROM
             configs
-    `)){
-        return {seeding_completed: Boolean(seeding_completed)};
-    }
+    `)
+  ) {
+    return { seeding_completed: Boolean(seeding_completed) };
+  }
 }
 
-export function set_seeding_to_complete(){
-    return db.query(`
+export function set_seeding_to_complete() {
+  return db.query(`
         UPDATE configs SET seeding_completed = 1
     `);
 }
