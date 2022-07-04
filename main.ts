@@ -1,19 +1,23 @@
-import { blue, bold, green, yellow } from "./deps.ts";
+import { blue, bold, ensureDirSync, green, yellow } from "./deps.ts";
 import * as data from "./data.ts";
+import { APP_DATA_PATH } from "./settings.ts";
+
+ensureDirSync(APP_DATA_PATH);
 
 try {
   // make sure db has been initialized
-  data.get_configs();
+  data.get_configs_from_db();
 } catch (_) {
   data.init_db();
 }
 
-const configs = data.get_configs();
+const configs = data.get_configs_from_db();
+if (!configs) console.error("no configs"), Deno.exit(1);
 
 if (!configs.seeding_completed) {
-  console.debug("seeding data");
-  await data.seed_libs();
-  await data.seed_topics();
+  console.log(green(bold("Syncing data...")));
+  data.seed_libs();
+  data.seed_topics();
   data.set_seeding_to_complete();
 }
 
@@ -32,7 +36,7 @@ if (!random_topic) {
   Deno.exit(0);
 }
 
-const std_lib = data.get_lib_from_id(random_topic.lib_id);
+const std_lib = data.get_lib(random_topic.lib_id);
 if (!std_lib) {
   console.error("Error finding library");
   Deno.exit(1);
@@ -47,4 +51,4 @@ console.log(`\n${bold(blue(std_lib.name))}: ${std_lib.description ?? ""}`);
 console.log(`\n${bold(green(random_topic.name))}: ${random_topic.link}`);
 console.log(`\n${bold(yellow("Happy learnings!"))}\n`);
 
-data.complete_topic(random_topic.id);
+// data.complete_topic(random_topic.id);

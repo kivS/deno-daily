@@ -1,4 +1,5 @@
 import { DB } from "./deps.ts";
+import { DB_PATH } from "./settings.ts";
 
 interface Topic {
   id: number;
@@ -10,13 +11,10 @@ interface Topic {
 
 interface Library {
   name: string;
-  description: string;
+  description?: string;
 }
 
-// TODO: fix typescript types
-
-// TODO: db location in home dir
-export const db = new DB("./db.sqlite");
+export const db = new DB(DB_PATH);
 
 export function init_db() {
   db.execute(`
@@ -47,44 +45,41 @@ export function init_db() {
     `);
 }
 
-export async function seed_libs() {
-  const sql = await Deno.readTextFile("./seed_libs.sql");
-  db.execute(sql);
+export function get_random_topic(): Topic | null {
+  const query = db.query(`
+      -- get random topic from all libs except the ones we've already seen.
+      SELECT
+          topics.id,
+          topics.name,
+          topics.link,
+          IFNULL(topics_completed.is_completed, 0) as is_completed,
+          topics.lib_id
+      FROM
+          topics
+          LEFT JOIN topics_completed ON topics.id = topics_completed.topic_id
+      WHERE
+          IFNULL(topics_completed.is_completed, 0) = 0
+      ORDER BY
+          random()
+      LIMIT 1;
+  `);
+
+  if (query.length === 0) return null;
+
+  const [id, name, link, is_completed, lib_id] = query[0];
+
+  return {
+    id: id as number,
+    name: String(name),
+    link: String(link),
+    is_completed: Boolean(is_completed),
+    lib_id: lib_id as number,
+  };
 }
 
-export async function seed_topics() {
-  const sql = await Deno.readTextFile("./seed_topics.sql");
-  db.execute(sql);
-}
-
-export function get_random_topic(): Topic | undefined {
-  for (
-    const [id, name, link, is_completed, lib_id] of db.query(`
-        -- get random topic from all libs except the ones we've already seen.
-        SELECT
-            topics.id,
-            topics.name,
-            topics.link,
-            IFNULL(topics_completed.is_completed, 0) as is_completed,
-            topics.lib_id
-        FROM
-            topics
-            LEFT JOIN topics_completed ON topics.id = topics_completed.topic_id
-        WHERE
-            IFNULL(topics_completed.is_completed, 0) = 0
-        ORDER BY
-            random()
-        LIMIT 1;
-    `)
-  ) {
-    return { id, name, link, is_completed: Boolean(is_completed), lib_id };
-  }
-}
-
-export function get_lib_from_id(lib_id: number): Library | undefined {
-  for (
-    const [name, description] of db.query(
-      `
+export function get_lib(lib_id: number): Library | null {
+  const query = db.query(
+    `
         SELECT
             name,
             description
@@ -93,11 +88,17 @@ export function get_lib_from_id(lib_id: number): Library | undefined {
         WHERE
             id = ?
     `,
-      [lib_id],
-    )
-  ) {
-    return { name, description };
-  }
+    [lib_id],
+  );
+
+  if (query.length === 0) return null;
+
+  const [name, description] = query[0];
+
+  return {
+    name: String(name),
+    description: description ? String(description) : "",
+  };
 }
 
 export function complete_topic(topic_id: number) {
@@ -115,7 +116,7 @@ export function reset_completed_topics() {
     `);
 }
 
-export function get_configs() {
+export function get_configs_from_db() {
   for (
     const [seeding_completed] of db.query(`
         SELECT
@@ -132,4 +133,24 @@ export function set_seeding_to_complete() {
   return db.query(`
         UPDATE configs SET seeding_completed = 1
     `);
+}
+
+export function seed_libs() {
+  db.execute(`
+    INSERT OR REPLACE INTO "std_libs" ("id", "name", "description") VALUES
+    ('1', 'archive', NULL),
+    ('2', 'async', 'async is a module to provide help with asynchronous tasks.'),
+    ('3', 'bytes', 'Provides helper functions to manipulate Uint8Array byte slices that are not included on the Uint8Array prototype.'),
+    ('4', 'collections', 'This module includes pure functions for specific common tasks around collection types like Array and Record.');
+  `);
+}
+
+export function seed_topics() {
+  db.execute(`
+    INSERT OR REPLACE INTO "topics" ("id", "name", "link", "lib_id") VALUES
+    ('1', 'Tar', 'https://github.com/denoland/deno_std/tree/main/archive#tar', '1'),
+    ('2', 'Untar', 'https://github.com/denoland/deno_std/tree/main/archive#untar', '1'),
+    ('3', 'abortable', 'https://github.com/denoland/deno_std/tree/main/async#abortable', '2'),
+    ('4', 'abortablePromise', 'https://github.com/denoland/deno_std/tree/main/async#abortablepromise', '2');
+  `);
 }
