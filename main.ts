@@ -14,10 +14,11 @@ const args = parse(Deno.args);
 
 if (args["help"]) {
   console.log(`
-  Usage: deno-daily [--help] [--sync] [--nuke]
+  Usage: deno-daily [--help] [--sync] [--unlearn] [--nuke]
 
   --help: show this help
   --sync: sync the database with the latest standard libraries data 
+  --unlearn: resets the learning topics so we can start over
   --nuke: Reset application and start over fresh
   `);
   Deno.exit(0);
@@ -58,6 +59,12 @@ if (args["sync"]) {
   data.seed_libs();
   data.seed_topics();
   console.log(green(bold("Done!")));
+  Deno.exit(0);
+}
+
+if (args["unlearn"]) {
+  console.log(yellow(bold("Reseting learned topics...")));
+  data.reset_completed_topics();
   Deno.exit(0);
 }
 
