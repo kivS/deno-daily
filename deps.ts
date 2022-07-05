@@ -1,4 +1,8 @@
-export { ensureDirSync } from "https://deno.land/std@0.146.0/fs/mod.ts";
+export { parse } from "https://deno.land/std@0.146.0/flags/mod.ts";
+export {
+  emptyDirSync,
+  ensureDirSync,
+} from "https://deno.land/std@0.146.0/fs/mod.ts";
 export {
   blue,
   bold,

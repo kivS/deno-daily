@@ -1,6 +1,27 @@
-import { blue, bold, ensureDirSync, green, yellow } from "./deps.ts";
+import {
+  blue,
+  bold,
+  emptyDirSync,
+  ensureDirSync,
+  green,
+  parse,
+  yellow,
+} from "./deps.ts";
 import * as data from "./data.ts";
 import { APP_DATA_PATH } from "./settings.ts";
+
+const args = parse(Deno.args);
+
+if (args["help"]) {
+  console.log(`
+  Usage: deno-daily [--help] [--sync] [--nuke]
+
+  --help: show this help
+  --sync: sync the database with the latest standard libraries data 
+  --nuke: Reset application and start over fresh
+  `);
+  Deno.exit(0);
+}
 
 ensureDirSync(APP_DATA_PATH);
 
@@ -26,8 +47,19 @@ globalThis.onunload = (_e: Event): void => {
   if (data.db) data.db.close();
 };
 
-// TODO: add flag to update data
-// TODO: add flag to nuke everything, db, directory of files, etc.
+if (args["nuke"]) {
+  console.log(yellow(bold("Reseting everything!")));
+  emptyDirSync(APP_DATA_PATH);
+  Deno.exit(0);
+}
+
+if (args["sync"]) {
+  console.log(blue(bold("Syncing data...")));
+  data.seed_libs();
+  data.seed_topics();
+  console.log(green(bold("Done!")));
+  Deno.exit(0);
+}
 
 const random_topic = data.get_random_topic();
 
@@ -51,4 +83,4 @@ console.log(`\n${bold(blue(std_lib.name))}: ${std_lib.description ?? ""}`);
 console.log(`\n${bold(green(random_topic.name))}: ${random_topic.link}`);
 console.log(`\n${bold(yellow("Happy learnings!"))}\n`);
 
-// data.complete_topic(random_topic.id);
+data.complete_topic(random_topic.id);

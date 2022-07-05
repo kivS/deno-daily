@@ -138,7 +138,7 @@ export function set_seeding_to_complete() {
 export function seed_libs() {
   db.execute(`
     INSERT OR REPLACE INTO "std_libs" ("id", "name", "description") VALUES
-    ('1', 'archive', NULL),
+    ('1', 'archive', 'Provides helpers for archiving and unarchiving files and directories.'),
     ('2', 'async', 'async is a module to provide help with asynchronous tasks.'),
     ('3', 'bytes', 'Provides helper functions to manipulate Uint8Array byte slices that are not included on the Uint8Array prototype.'),
     ('4', 'collections', 'This module includes pure functions for specific common tasks around collection types like Array and Record.');
