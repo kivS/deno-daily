@@ -4,7 +4,7 @@
 
 ## How to use
 
-### By installing as a script:
+### By installing as a script
 
 ```bash
 deno install --allow-read --allow-write --allow-env  https://raw.githubusercontent.com/kivS/deno-daily/main/main.ts
@@ -14,8 +14,9 @@ deno install --allow-read --allow-write --allow-env  https://raw.githubuserconte
 deno-daily
 ```
 
-### By running directly:
+````
+### By running directly
 
 ```bash
 deno run --allow-read --allow-write --allow-env  https://raw.githubusercontent.com/kivS/deno-daily/main/main.ts
-```
+````
