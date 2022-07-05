@@ -7,7 +7,7 @@
 ### By installing as a script
 
 ```bash
-deno install --allow-read --allow-write --allow-env  https://raw.githubusercontent.com/kivS/deno-daily/main/main.ts
+deno install --name deno-daily --allow-read --allow-write --allow-env  https://raw.githubusercontent.com/kivS/deno-daily/main/main.ts
 ```
 
 ```bash
@@ -19,4 +19,5 @@ deno-daily
 
 ```bash
 deno run --allow-read --allow-write --allow-env  https://raw.githubusercontent.com/kivS/deno-daily/main/main.ts
+```
 ````
