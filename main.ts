@@ -7,8 +7,13 @@ import {
   parse,
   yellow,
 } from "./deps.ts";
-import * as data from "./data.ts";
 import { APP_DATA_PATH } from "./settings.ts";
+import { Model } from "./data.ts";
+
+// directory where we'll store our data
+ensureDirSync(APP_DATA_PATH);
+
+const data = new Model();
 
 const args = parse(Deno.args);
 
@@ -23,8 +28,6 @@ if (args["help"]) {
   `);
   Deno.exit(0);
 }
-
-ensureDirSync(APP_DATA_PATH);
 
 try {
   // make sure db has been initialized
