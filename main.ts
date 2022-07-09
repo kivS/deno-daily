@@ -53,7 +53,7 @@ globalThis.onunload = (_e: Event): void => {
 
 if (args["nuke"]) {
   console.log(yellow(bold("Reseting everything!")));
-  emptyDirSync(APP_DATA_PATH);
+  Deno.removeSync(APP_DATA_PATH, { recursive: true });
   Deno.exit(0);
 }
 

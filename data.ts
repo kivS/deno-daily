@@ -150,13 +150,31 @@ export class Model {
   `);
   }
 
+  // TODO: update new/old items in the db without afecting the rest of the data.
   seed_topics() {
     this.db.execute(`
-    INSERT OR REPLACE INTO "topics" ("id", "name", "link", "lib_id") VALUES
-    ('1', 'Tar', 'https://github.com/denoland/deno_std/tree/main/archive#tar', '1'),
-    ('2', 'Untar', 'https://github.com/denoland/deno_std/tree/main/archive#untar', '1'),
-    ('3', 'abortable', 'https://github.com/denoland/deno_std/tree/main/async#abortable', '2'),
-    ('4', 'abortablePromise', 'https://github.com/denoland/deno_std/tree/main/async#abortablepromise', '2');
+    INSERT INTO "topics" ("name", "link", "lib_id") VALUES
+    -- archive
+    ('Tar', 'https://github.com/denoland/deno_std/tree/main/archive#tar', '1'),
+    ('Untar', 'https://github.com/denoland/deno_std/tree/main/archive#untar', '1'),
+
+    -- async
+    ('abortable', 'https://github.com/denoland/deno_std/tree/main/async#abortable', '2'),
+    ('abortablePromise', 'https://github.com/denoland/deno_std/tree/main/async#abortablepromise', '2'),
+    ('abortableAsyncIterable', 'https://github.com/denoland/deno_std/tree/main/async#abortableasynciterable', '2'),
+    ('debounce', 'https://github.com/denoland/deno_std/tree/main/async#debounce', '2'),
+    ('deferred', 'https://github.com/denoland/deno_std/tree/main/async#deferred', '2'),
+    ('delay', 'https://github.com/denoland/deno_std/tree/main/async#delay', '2'),
+    ('MuxAsyncIterator', 'https://github.com/denoland/deno_std/tree/main/async#muxasynciterator', '2'),
+    ('pooledMap', 'https://github.com/denoland/deno_std/tree/main/async#pooledmap', '2'),
+    ('tee', 'https://github.com/denoland/deno_std/tree/main/async#tee', '2'),
+    ('deadline', 'https://github.com/denoland/deno_std/tree/main/async#deadline', '2'),
+    
+    -- bytes
+    ('concat', 'https://doc.deno.land/https://deno.land/std/bytes/mod.ts/~/concat', '2'),
+    ('copy', 'https://doc.deno.land/https://deno.land/std/bytes/mod.ts/~/copy', '2')
+    
+    ;
   `);
   }
 }
