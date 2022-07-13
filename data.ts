@@ -26,20 +26,23 @@ export class Model {
           CREATE TABLE IF NOT EXISTS std_libs (
               id INTEGER PRIMARY KEY,
               name TEXT UNIQUE,
-              description TEXT
+              description TEXT,
+              created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
           );
     
         CREATE TABLE IF NOT EXISTS topics (
               id INTEGER PRIMARY KEY,
               name TEXT,
               link TEXT UNIQUE,
-              lib_id INTEGER REFERENCES std_libs(id) ON DELETE CASCADE ON UPDATE CASCADE
+              lib_id INTEGER REFERENCES std_libs(id) ON DELETE CASCADE ON UPDATE CASCADE,
+              created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
           );
 
       
           CREATE TABLE IF NOT EXISTS topics_completed(
                   topic_id INTEGER REFERENCES topics(id) ON DELETE CASCADE ON UPDATE CASCADE,
-                  is_completed INT DEFAULT 0
+                  is_completed INT DEFAULT 0,
+                  completed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
           );     
 
           CREATE TABLE configs(
@@ -174,7 +177,8 @@ export class Model {
     
     -- bytes
     ('concat', 'https://doc.deno.land/https://deno.land/std/bytes/mod.ts/~/concat', '2'),
-    ('copy', 'https://doc.deno.land/https://deno.land/std/bytes/mod.ts/~/copy', '2')
+    ('copy', 'https://doc.deno.land/https://deno.land/std/bytes/mod.ts/~/copy', '2'),
+    ('endsWith', 'https://doc.deno.land/https://deno.land/std/bytes/mod.ts/~/endsWith', '2')
     
     ON CONFLICT(link) DO NOTHING;
   `);
