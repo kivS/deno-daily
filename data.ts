@@ -25,14 +25,14 @@ export class Model {
     this.db.execute(`
           CREATE TABLE IF NOT EXISTS std_libs (
               id INTEGER PRIMARY KEY,
-              name TEXT,
+              name TEXT UNIQUE,
               description TEXT
           );
     
         CREATE TABLE IF NOT EXISTS topics (
               id INTEGER PRIMARY KEY,
               name TEXT,
-              link TEXT,
+              link TEXT UNIQUE,
               lib_id INTEGER REFERENCES std_libs(id) ON DELETE CASCADE ON UPDATE CASCADE
           );
 
@@ -142,11 +142,13 @@ export class Model {
 
   seed_libs() {
     this.db.execute(`
-    INSERT OR REPLACE INTO "std_libs" ("id", "name", "description") VALUES
+    INSERT INTO "std_libs" ("id", "name", "description") VALUES
     ('1', 'archive', 'Provides helpers for archiving and unarchiving files and directories.'),
     ('2', 'async', 'async is a module to provide help with asynchronous tasks.'),
     ('3', 'bytes', 'Provides helper functions to manipulate Uint8Array byte slices that are not included on the Uint8Array prototype.'),
-    ('4', 'collections', 'This module includes pure functions for specific common tasks around collection types like Array and Record.');
+    ('4', 'collections', 'This module includes pure functions for specific common tasks around collection types like Array and Record.')
+
+    ON CONFLICT(name) DO UPDATE SET description = excluded.description WHERE EXCLUDED.description != description;
   `);
   }
 
@@ -174,7 +176,7 @@ export class Model {
     ('concat', 'https://doc.deno.land/https://deno.land/std/bytes/mod.ts/~/concat', '2'),
     ('copy', 'https://doc.deno.land/https://deno.land/std/bytes/mod.ts/~/copy', '2')
     
-    ;
+    ON CONFLICT(link) DO NOTHING;
   `);
   }
 }
