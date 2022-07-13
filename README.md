@@ -2,6 +2,8 @@
 
 > A Deno standard library topic a day keeps the Dinossaur away.
 
+![Usage screenshot](./screenshot.png)
+
 ## How to use
 
 ### By installing as a script
