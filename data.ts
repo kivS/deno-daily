@@ -23,32 +23,32 @@ export class Model {
 
   init_db() {
     this.db.execute(`
-          CREATE TABLE IF NOT EXISTS std_libs (
-              id INTEGER PRIMARY KEY,
-              name TEXT UNIQUE,
-              description TEXT,
-              created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        CREATE TABLE IF NOT EXISTS std_libs (
+            id INTEGER PRIMARY KEY,
+            name TEXT UNIQUE,
+            description TEXT,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
           );
     
         CREATE TABLE IF NOT EXISTS topics (
-              id INTEGER PRIMARY KEY,
-              name TEXT,
-              link TEXT UNIQUE,
-              lib_id INTEGER REFERENCES std_libs(id) ON DELETE CASCADE ON UPDATE CASCADE,
-              created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            id INTEGER PRIMARY KEY,
+            name TEXT,
+            link TEXT UNIQUE,
+            lib_id INTEGER REFERENCES std_libs(id) ON DELETE CASCADE ON UPDATE CASCADE,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
           );
 
       
-          CREATE TABLE IF NOT EXISTS topics_completed(
-                  topic_id INTEGER REFERENCES topics(id) ON DELETE CASCADE ON UPDATE CASCADE,
-                  is_completed INT DEFAULT 0,
-                  completed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-          );     
+        CREATE TABLE IF NOT EXISTS topics_completed(
+          topic_id INTEGER REFERENCES topics(id) ON DELETE CASCADE ON UPDATE CASCADE,
+          is_completed INT DEFAULT 0,
+          completed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        );     
 
-          CREATE TABLE configs(
-              seeding_completed INT DEFAULT 0
-          );
-          INSERT INTO configs(seeding_completed) VALUES(0);
+        CREATE TABLE configs(
+          seeding_completed INT DEFAULT 0
+        );
+        INSERT INTO configs(seeding_completed) VALUES(0);
 
     `);
   }
