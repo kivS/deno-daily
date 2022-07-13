@@ -1,12 +1,4 @@
-import {
-  blue,
-  bold,
-  emptyDirSync,
-  ensureDirSync,
-  green,
-  parse,
-  yellow,
-} from "./deps.ts";
+import { blue, bold, ensureDirSync, green, parse, yellow } from "./deps.ts";
 import { APP_DATA_PATH } from "./settings.ts";
 import { Model } from "./data.ts";
 

@@ -155,7 +155,6 @@ export class Model {
   `);
   }
 
-  // TODO: update new/old items in the db without afecting the rest of the data.
   seed_topics() {
     this.db.execute(`
     INSERT INTO "topics" ("name", "link", "lib_id") VALUES
