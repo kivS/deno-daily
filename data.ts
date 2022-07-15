@@ -149,7 +149,10 @@ export class Model {
     ('1', 'archive', 'Provides helpers for archiving and unarchiving files and directories.'),
     ('2', 'async', 'async is a module to provide help with asynchronous tasks.'),
     ('3', 'bytes', 'Provides helper functions to manipulate Uint8Array byte slices that are not included on the Uint8Array prototype.'),
-    ('4', 'collections', 'This module includes pure functions for specific common tasks around collection types like Array and Record.')
+    ('4', 'collections', 'This module includes pure functions for specific common tasks around collection types like Array and Record.'),
+    ('5', 'crypto', 'Library for cryptographic functions.'),
+    ('6', 'datetime', 'Simple helper to help parse date strings into Date, with additional functions.'),
+    ('7', 'dotenv', 'Library for loading environment variables from a .env file.')
 
     ON CONFLICT(name) DO UPDATE SET description = excluded.description WHERE EXCLUDED.description != description;
   `);
@@ -230,7 +233,26 @@ export class Model {
     ('zip', 'https://github.com/denoland/deno_std/tree/main/collections#zip', 4),
     ('BinaryHeap', 'https://github.com/denoland/deno_std/tree/main/collections#binaryheap', 4),
     ('BinarySearchTree', 'https://github.com/denoland/deno_std/tree/main/collections#binarysearchtree', 4),
-    ('RedBlackTree', 'https://github.com/denoland/deno_std/tree/main/collections#redblacktree', 4)
+    ('RedBlackTree', 'https://github.com/denoland/deno_std/tree/main/collections#redblacktree', 4),
+
+    -- crypto
+    ('digest', 'https://github.com/denoland/deno_std/tree/main/crypto#usage', 5),
+
+    -- datetime
+    ('parse', 'https://github.com/denoland/deno_std/tree/main/datetime#parse', 6),
+    ('format', 'https://github.com/denoland/deno_std/tree/main/datetime#format', 6),
+    ('dayOfYear', 'https://github.com/denoland/deno_std/tree/main/datetime#dayofyear', 6),
+    ('weekOfYear', 'https://github.com/denoland/deno_std/tree/main/datetime#weekofyear', 6),
+    ('toIMF', 'https://github.com/denoland/deno_std/tree/main/datetime#toimf', 6),
+    ('isLeap', 'https://github.com/denoland/deno_std/tree/main/datetime#isleap', 6),
+    ('difference', 'https://github.com/denoland/deno_std/tree/main/datetime#difference', 6),
+    ('Constants', 'https://github.com/denoland/deno_std/tree/main/datetime#constants', 6),
+
+    -- dotenv
+    ('config', 'https://github.com/denoland/deno_std/tree/main/dotenv#usage', 7),
+    ('auto-loading', 'https://github.com/denoland/deno_std/tree/main/dotenv#auto-loading', 7),
+    ('safe-mode', 'https://github.com/denoland/deno_std/tree/main/dotenv#safe-mode', 7),
+    ('default-values', 'https://github.com/denoland/deno_std/tree/main/dotenv#default-values', 7)
     
     ON CONFLICT(link) DO NOTHING;
   `);
