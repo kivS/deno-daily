@@ -152,7 +152,21 @@ export class Model {
     ('4', 'collections', 'This module includes pure functions for specific common tasks around collection types like Array and Record.'),
     ('5', 'crypto', 'Library for cryptographic functions.'),
     ('6', 'datetime', 'Simple helper to help parse date strings into Date, with additional functions.'),
-    ('7', 'dotenv', 'Library for loading environment variables from a .env file.')
+    ('7', 'dotenv', 'Library for loading environment variables from a .env file.'),
+    ('8', 'encoding', 'Helper module for dealing with external data structures.'),
+    ('9', 'flags', 'Command line arguments parser for Deno based on minimist.'),
+    ('10', 'fmt', 'Formatting library for Deno.'),
+    ('11', 'fs', 'fs module is made to provide helpers to manipulate the filesystem.'),
+    ('12', 'http', 'http is a module to provide HTTP client and server implementations.'),
+    ('13', 'io', 'io module is made to provide helpers to manipulate the filesystem.'),
+    ('14', 'log', ''),
+    ('15', 'media_types', 'Provides an API for handling media (MIME) types.'),
+    ('16', 'path', 'path module is made to provide helpers to manipulate the path.'),
+    ('17', 'signal', 'signal is a module used to capture and monitor OS signals.'),
+    ('18', 'streams', ''),
+    ('19', 'testing', 'This module provides a few basic utilities to make testing easier and consistent in Deno.'),
+    ('20', 'uuid', 'Generate and validate v1, v4, and v5 UUIDs.'),
+    ('21', 'wasi', 'This module provides an implementation of the WebAssembly System Interface.')
 
     ON CONFLICT(name) DO UPDATE SET description = excluded.description WHERE EXCLUDED.description != description;
   `);
@@ -252,8 +266,106 @@ export class Model {
     ('config', 'https://github.com/denoland/deno_std/tree/main/dotenv#usage', 7),
     ('auto-loading', 'https://github.com/denoland/deno_std/tree/main/dotenv#auto-loading', 7),
     ('safe-mode', 'https://github.com/denoland/deno_std/tree/main/dotenv#safe-mode', 7),
-    ('default-values', 'https://github.com/denoland/deno_std/tree/main/dotenv#default-values', 7)
-    
+    ('default-values', 'https://github.com/denoland/deno_std/tree/main/dotenv#default-values', 7),
+
+    -- encoding
+    ('binary', 'https://github.com/denoland/deno_std/tree/main/encoding#binary', 8),
+    ('csv', 'https://github.com/denoland/deno_std/tree/main/encoding#csv', 8),
+    ('toml', 'https://github.com/denoland/deno_std/tree/main/encoding#toml', 8),
+    ('yaml', 'https://github.com/denoland/deno_std/tree/main/encoding#yaml', 8),
+    ('JSON streaming', 'https://github.com/denoland/deno_std/tree/main/encoding#json-streaming', 8),
+    ('jsonc', 'https://github.com/denoland/deno_std/tree/main/encoding#jsonc', 8),
+    ('base32', 'https://github.com/denoland/deno_std/tree/main/encoding#base32', 8),
+    ('base64', 'https://github.com/denoland/deno_std/tree/main/encoding#base64', 8),
+    ('base64url', 'https://github.com/denoland/deno_std/tree/main/encoding#base64url', 8),
+    ('ascii85', 'https://github.com/denoland/deno_std/tree/main/encoding#ascii85', 8),
+    ('hex', 'https://github.com/denoland/deno_std/tree/main/encoding#hex', 8),
+
+    -- flags
+    ('parse', 'https://github.com/denoland/deno_std/tree/main/flags#example', 9),
+
+    -- fmt
+    ('printf', 'https://github.com/denoland/deno_std/tree/main/fmt#printf-prints-formatted-output', 10),
+    ('colors', 'https://github.com/denoland/deno_std/tree/main/fmt#colors', 10),
+    ('pretty-bytes', 'https://github.com/denoland/deno_std/tree/main/fmt#pretty-bytes', 10),
+
+    -- fs
+    ('emptyDir', 'https://github.com/denoland/deno_std/tree/main/fs#emptydir', 11),
+    ('ensureDir', 'https://github.com/denoland/deno_std/tree/main/fs#ensuredir', 11),
+    ('ensureFile', 'https://github.com/denoland/deno_std/tree/main/fs#ensurefile', 11),
+    ('ensureSymlink', 'https://github.com/denoland/deno_std/tree/main/fs#ensuresymlink', 11),
+    ('EOL', 'https://github.com/denoland/deno_std/tree/main/fs#eol', 11),
+    ('exists', 'https://github.com/denoland/deno_std/tree/main/fs#exists', 11),
+    ('copy', 'https://github.com/denoland/deno_std/tree/main/fs#copy', 11),
+    ('walk', 'https://github.com/denoland/deno_std/tree/main/fs#walk', 11),
+    ('expandGlob', 'https://github.com/denoland/deno_std/tree/main/fs#expandglob', 11),
+
+    -- http
+    ('server', 'https://github.com/denoland/deno_std/tree/main/http#server', 12),
+    ('file-server', 'https://github.com/denoland/deno_std/tree/main/http#file-server', 12),
+    ('http status code and status text', 'https://github.com/denoland/deno_std/tree/main/http#http-status-code-and-status-text', 12),
+    ('HTTP errors', 'https://github.com/denoland/deno_std/tree/main/http#http-errors', 12),
+    ('Negotiation', 'https://github.com/denoland/deno_std/tree/main/http#negotiation', 12),
+    ('Cookie', 'https://github.com/denoland/deno_std/tree/main/http#cookie', 12),
+
+
+    -- io 
+    ('readLines', 'https://github.com/denoland/deno_std/tree/main/io#readlines', 13),
+    ('readStringDelim', 'https://github.com/denoland/deno_std/tree/main/io#readstringdelim', 13),
+    ('StringReader', 'https://github.com/denoland/deno_std/tree/main/io#stringreader', 13),
+    ('StringWriter', 'https://github.com/denoland/deno_std/tree/main/io#stringwriter', 13),
+
+    -- log
+    ('log', 'https://github.com/denoland/deno_std/tree/main/log#usage', 14),
+    ('inline-logging', 'https://github.com/denoland/deno_std/tree/main/log#inline-logging', 14),
+    ('Lazy Log Evaluation', 'https://github.com/denoland/deno_std/tree/main/log#lazy-log-evaluation', 14),
+
+    -- media_types
+    ('contentType', 'https://github.com/denoland/deno_std/tree/main/media_types#contenttype', 15),
+    ('extension', 'https://github.com/denoland/deno_std/tree/main/media_types#extension', 15),
+    ('extensionsByType', 'https://github.com/denoland/deno_std/tree/main/media_types#extensionsbytype', 15),
+    ('formatMediaType', 'https://github.com/denoland/deno_std/tree/main/media_types#formatmediatype', 15),
+    ('getCharset', 'https://github.com/denoland/deno_std/tree/main/media_types#getcharset', 15),
+    ('parseMediaType', 'https://github.com/denoland/deno_std/tree/main/media_types#parsemediatype', 15),
+    ('typeByExtension', 'https://github.com/denoland/deno_std/tree/main/media_types#typebyextension', 15),
+
+    -- path
+    ('basename', 'https://github.com/denoland/deno_std/tree/main/path#basename', 16),
+    ('dirname', 'https://github.com/denoland/deno_std/tree/main/path#dirname', 16),
+    ('extname', 'https://github.com/denoland/deno_std/tree/main/path#extname', 16),
+    ('format', 'https://github.com/denoland/deno_std/tree/main/path#format', 16),
+    ('fromFileUrl', 'https://github.com/denoland/deno_std/tree/main/path#fromfileurl', 16),
+    ('isAbsolute', 'https://github.com/denoland/deno_std/tree/main/path#isabsolute', 16),
+    ('join', 'https://github.com/denoland/deno_std/tree/main/path#join', 16),
+    ('normalize', 'https://github.com/denoland/deno_std/tree/main/path#normalize', 16),
+    ('parse', 'https://github.com/denoland/deno_std/tree/main/path#parse', 16),
+    ('relative', 'https://github.com/denoland/deno_std/tree/main/path#relative', 16),
+    ('resolve', 'https://github.com/denoland/deno_std/tree/main/path#resolve', 16),
+    ('toFileUrl', 'https://github.com/denoland/deno_std/tree/main/path#tofileurl', 16),
+    ('toNamespacedPath', 'https://github.com/denoland/deno_std/tree/main/path#tonamespacedpath', 16),
+    ('common', 'https://github.com/denoland/deno_std/tree/main/path#common', 16),
+    ('globToRegExp', 'https://github.com/denoland/deno_std/tree/main/path#globtoregexp', 16),
+
+    -- signal
+    ('signal', 'https://github.com/denoland/deno_std/tree/main/signal#signal-1', 17),
+
+
+    -- streams
+    ('Conversion', 'https://github.com/denoland/deno_std/tree/main/streams#conversion', 18),
+
+
+    -- testing
+    ('assert', 'https://github.com/denoland/deno_std/tree/main/testing#usage', 19),
+    ('Snapshot Testing', 'https://github.com/denoland/deno_std/tree/main/testing#snapshot-testing', 19),
+    ('Behavior-driven development', 'https://github.com/denoland/deno_std/tree/main/testing#behavior-driven-development', 19),
+    ('Mocking', 'https://github.com/denoland/deno_std/tree/main/testing#mocking', 19),
+
+    -- uuid
+    ('uuid', 'https://github.com/denoland/deno_std/tree/main/uuid#examples', 20),
+
+    -- wasi
+    ('WebAssembly', 'https://github.com/denoland/deno_std/tree/main/wasi#usage', 21)
+
     ON CONFLICT(link) DO NOTHING;
   `);
   }
