@@ -1,4 +1,14 @@
-import { blue, bold, ensureDirSync, green, parse, yellow } from "./deps.ts";
+import {
+  blue,
+  bold,
+  DAY,
+  difference,
+  ensureDirSync,
+  format,
+  green,
+  parse,
+  yellow,
+} from "./deps.ts";
 import { APP_DATA_PATH } from "./settings.ts";
 import { Model } from "./data.ts";
 
@@ -63,6 +73,36 @@ if (args["unlearn"]) {
   Deno.exit(0);
 }
 
+// enforce one topic a day
+const last_run_datetime = data.get_last_run_datetime();
+const date_now = Date.now();
+
+const datetime_diff = difference(
+  new Date(Number(last_run_datetime)),
+  new Date(date_now),
+  { units: ["minutes", "hours", "days"] },
+);
+
+console.log({ datetime_diff });
+
+const come_back_after_datetime = new Date(Number(last_run_datetime) + DAY);
+
+if (
+  args["force"] === undefined && datetime_diff.days !== undefined &&
+  datetime_diff.days < 1
+) {
+  console.log(
+    yellow(
+      bold(
+        `You've already run today! Come back tomorrow after ${
+          format(come_back_after_datetime, "HH:mm")
+        }. ${green("\nor use the --force flag to run now.")}`,
+      ),
+    ),
+  );
+  Deno.exit(0);
+}
+
 const random_topic = data.get_random_topic();
 
 if (!random_topic) {
@@ -86,3 +126,4 @@ console.log(`\n${bold(green(random_topic.name))}: ${random_topic.link}`);
 console.log(`\n${bold(yellow("Happy learnings!"))}\n`);
 
 data.complete_topic(random_topic.id);
+data.update_last_run_datetime();

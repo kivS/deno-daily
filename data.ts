@@ -369,4 +369,18 @@ export class Model {
     ON CONFLICT(link) DO NOTHING;
   `);
   }
+
+  /**
+   * update the last datetime time we learned a topic. This is saved on localStorage
+   */
+  update_last_run_datetime() {
+    localStorage.setItem("last_run_datetime", Date.now().toString());
+  }
+
+  /**
+   * the last datetime time we learned a topic. From localStorage
+   */
+  get_last_run_datetime(): string | null {
+    return localStorage.getItem("last_run_datetime");
+  }
 }
