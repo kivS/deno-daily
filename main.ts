@@ -56,6 +56,7 @@ globalThis.onunload = (_e: Event): void => {
 if (args["nuke"]) {
   console.log(yellow(bold("Reseting everything!")));
   Deno.removeSync(APP_DATA_PATH, { recursive: true });
+  localStorage.clear();
   Deno.exit(0);
 }
 
@@ -82,8 +83,6 @@ const datetime_diff = difference(
   new Date(date_now),
   { units: ["minutes", "hours", "days"] },
 );
-
-console.log({ datetime_diff });
 
 const come_back_after_datetime = new Date(Number(last_run_datetime) + DAY);
 
