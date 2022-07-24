@@ -166,7 +166,8 @@ export class Model {
     ('18', 'streams', ''),
     ('19', 'testing', 'This module provides a few basic utilities to make testing easier and consistent in Deno.'),
     ('20', 'uuid', 'Generate and validate v1, v4, and v5 UUIDs.'),
-    ('21', 'wasi', 'This module provides an implementation of the WebAssembly System Interface.')
+    ('21', 'wasi', 'This module provides an implementation of the WebAssembly System Interface.'),
+    ('22', 'Semver', 'Semver is a library for working with Semantic Versioning (SemVer).')
 
     ON CONFLICT(name) DO UPDATE SET description = excluded.description WHERE EXCLUDED.description != description;
   `);
@@ -364,7 +365,10 @@ export class Model {
     ('uuid', 'https://github.com/denoland/deno_std/tree/main/uuid#examples', 20),
 
     -- wasi
-    ('WebAssembly', 'https://github.com/denoland/deno_std/tree/main/wasi#usage', 21)
+    ('WebAssembly', 'https://github.com/denoland/deno_std/tree/main/wasi#usage', 21),
+
+    -- Semver
+    ('semver', 'https://github.com/denoland/deno_std/tree/main/semver#usage', 22)
 
     ON CONFLICT(link) DO NOTHING;
   `);

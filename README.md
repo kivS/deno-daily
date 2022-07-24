@@ -4,6 +4,9 @@
 
 ![Usage screenshot](./screenshot.png)
 
+A little tool that helps you discover the
+[deno standard library](https://github.com/denoland/deno_std)
+
 ## How to use
 
 ### By installing as a script
