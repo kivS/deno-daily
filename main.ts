@@ -89,6 +89,7 @@ if (args["stats"]) {
     }. You're around ${green(percentage_done.toString() + "%")} done. `,
   );
 
+  if (stats.most_learned_libs_query.length < 1) Deno.exit(0);
   const [count, lib] = stats.most_learned_libs_query[0];
 
   console.log(
