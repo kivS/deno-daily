@@ -393,15 +393,6 @@ export class Model {
    * - topics learned in comparison with total we have to learn
    * - Libraries with most topics learned
    * - How long since our last learned topic
-   *
-   *   // SELECT
-      //   topics.name AS topic,
-      //   std_libs.name AS library,
-      //   topics_completed.completed_at
-      // FROM
-      //   topics_completed
-      //   JOIN topics ON topics_completed.topic_id = topics.id
-      //   JOIN std_libs ON topics.lib_id = std_libs.id
    */
   get_stats() {
     const left_to_learn_query = this.db.query(`
@@ -426,15 +417,12 @@ export class Model {
       LIMIT 3;
     `);
 
-    return [left_to_learn_query, most_learned_libs_query];
+    const [topics_completed_count, total_topics_count] = left_to_learn_query[0];
 
-    // if (query.length === 0) return null;
-
-    // const [name, description] = query[0];
-
-    // return {
-    //   name: String(name),
-    //   description: description ? String(description) : "",
-    // };
+    return {
+      topics_completed_count,
+      total_topics_count,
+      most_learned_libs_query,
+    };
   }
 }

@@ -75,9 +75,27 @@ if (args["unlearn"]) {
 }
 
 if (args["stats"]) {
-  console.log(blue(bold("Stats...")));
+  console.log(blue(bold("Some stats for you...")));
   const stats = data.get_stats();
-  console.log(stats);
+
+  const percentage_done = Math.round(
+    (stats.topics_completed_count / stats.total_topics_count) * 100,
+  );
+  console.log(
+    `You've learned ${
+      blue(stats.topics_completed_count.toString())
+    } topics out of ${
+      blue(stats.total_topics_count.toString())
+    }. You're around ${green(percentage_done.toString() + "%")} done. `,
+  );
+
+  const [count, lib] = stats.most_learned_libs_query[0];
+
+  console.log(
+    `Your most learned library is the ${blue(lib)} library with ${
+      green(count.toString())
+    } topics learned.`,
+  );
   Deno.exit(0);
 }
 
