@@ -387,4 +387,54 @@ export class Model {
   get_last_run_datetime(): string | null {
     return localStorage.getItem("last_run_datetime");
   }
+
+  /**
+   * Get stats of usage, like:
+   * - topics learned in comparison with total we have to learn
+   * - Libraries with most topics learned
+   * - How long since our last learned topic
+   *
+   *   // SELECT
+      //   topics.name AS topic,
+      //   std_libs.name AS library,
+      //   topics_completed.completed_at
+      // FROM
+      //   topics_completed
+      //   JOIN topics ON topics_completed.topic_id = topics.id
+      //   JOIN std_libs ON topics.lib_id = std_libs.id
+   */
+  get_stats() {
+    const left_to_learn_query = this.db.query(`
+      SELECT 
+        count(topics_completed.topic_id) AS topics_completed_count,
+        (SELECT count(*) FROM topics) AS total_topics_count
+      FROM topics_completed;
+    `);
+
+    const most_learned_libs_query = this.db.query(`
+      SELECT
+        count(std_libs.id) AS count,
+        std_libs.name
+      FROM
+        topics_completed
+        JOIN topics ON topics_completed.topic_id = topics.id
+        JOIN std_libs ON topics.lib_id = std_libs.id
+      GROUP BY
+        std_libs.id
+      ORDER BY
+        count DESC
+      LIMIT 3;
+    `);
+
+    return [left_to_learn_query, most_learned_libs_query];
+
+    // if (query.length === 0) return null;
+
+    // const [name, description] = query[0];
+
+    // return {
+    //   name: String(name),
+    //   description: description ? String(description) : "",
+    // };
+  }
 }

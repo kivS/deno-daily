@@ -74,6 +74,13 @@ if (args["unlearn"]) {
   Deno.exit(0);
 }
 
+if (args["stats"]) {
+  console.log(blue(bold("Stats...")));
+  const stats = data.get_stats();
+  console.log(stats);
+  Deno.exit(0);
+}
+
 // enforce one topic a day
 const last_run_datetime = data.get_last_run_datetime();
 const date_now = Date.now();
