@@ -1,4 +1,4 @@
-import { DB } from "./deps.ts";
+import { DB, Row } from "./deps.ts";
 import { DB_PATH } from "./settings.ts";
 
 interface Topic {
@@ -394,7 +394,11 @@ export class Model {
    * - Libraries with most topics learned
    * - How long since our last learned topic
    */
-  get_stats() {
+  get_stats(): {
+    topics_completed_count: number;
+    total_topics_count: number;
+    most_learned_libs_query: Array<[count: number, name: string]>;
+  } {
     const left_to_learn_query = this.db.query(`
       SELECT 
         count(topics_completed.topic_id) AS topics_completed_count,
@@ -420,8 +424,8 @@ export class Model {
     const [topics_completed_count, total_topics_count] = left_to_learn_query[0];
 
     return {
-      topics_completed_count,
-      total_topics_count,
+      topics_completed_count: Number(topics_completed_count),
+      total_topics_count: Number(total_topics_count),
       most_learned_libs_query,
     };
   }

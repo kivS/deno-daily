@@ -21,9 +21,10 @@ const args = parse(Deno.args);
 
 if (args["help"]) {
   console.log(`
-  Usage: deno-daily [--help] [--sync] [--unlearn] [--nuke]
+  Usage: deno-daily [--help] [--stats] [--sync] [--unlearn] [--nuke]
 
   --help: show this help
+  --stats: show stats
   --sync: sync the database with the latest standard libraries data 
   --unlearn: resets the learning topics so we can start over
   --nuke: Reset application and start over fresh
