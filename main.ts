@@ -127,12 +127,12 @@ if (args["stats"]) {
     }. You're around ${green(percentage_done.toString() + "%")} done. `,
   );
 
-  if (stats.most_learned_libs_query.length < 1) Deno.exit(0);
-  const [count, lib] = stats.most_learned_libs_query[0];
+  if (stats.most_learned_libs.length < 1) Deno.exit(0);
+  const most_learned = stats.most_learned_libs[0];
 
   console.log(
-    `Your most learned library is the ${blue(lib)} library with ${
-      green(count.toString())
+    `Your most learned library is the ${blue(most_learned.name)} library with ${
+      green(most_learned.count.toString())
     } topics learned.`,
   );
   Deno.exit(0);
@@ -148,9 +148,10 @@ if (args["nuke"]) {
 console.log(`
 Usage: deno-daily  [--stats] [--sync] [--unlearn] [--nuke]
 
+--learn: learn a new topic
 --stats: show stats(learned topics and libraries)
---sync: sync the database with the latest standard libraries data 
 --unlearn: resets the learning topics so we can start over
+--sync: sync the database with the latest standard libraries data 
 --nuke: Reset application and start over
 `);
 Deno.exit(0);

@@ -1,18 +1,25 @@
-import { DB, Row } from "./deps.ts";
+import { RowObject } from "https://deno.land/x/sqlite@v3.5.0/mod.ts";
+import { DB } from "./deps.ts";
 import { DB_PATH } from "./settings.ts";
 
-interface Topic {
+type Topic = {
   id: number;
   name: string;
   link: string;
   is_completed: boolean;
   lib_id: number;
-}
+};
 
-interface Library {
+type Library = {
   name: string;
   description?: string;
-}
+};
+
+type Stats = {
+  topics_completed_count: number;
+  total_topics_count: number;
+  most_learned_libs: any[];
+};
 
 export class Model {
   db: DB;
@@ -394,19 +401,15 @@ export class Model {
    * - Libraries with most topics learned
    * - How long since our last learned topic
    */
-  get_stats(): {
-    topics_completed_count: number;
-    total_topics_count: number;
-    most_learned_libs_query: Array<[count: number, name: string]>;
-  } {
-    const left_to_learn_query = this.db.query(`
+  get_stats(): Stats {
+    const left_to_learn_query = this.db.prepareQuery(`
       SELECT 
         count(topics_completed.topic_id) AS topics_completed_count,
         (SELECT count(*) FROM topics) AS total_topics_count
       FROM topics_completed;
-    `);
+    `).firstEntry();
 
-    const most_learned_libs_query = this.db.query(`
+    const most_learned_libs_query = this.db.queryEntries(`
       SELECT
         count(std_libs.id) AS count,
         std_libs.name
@@ -421,12 +424,12 @@ export class Model {
       LIMIT 3;
     `);
 
-    const [topics_completed_count, total_topics_count] = left_to_learn_query[0];
-
     return {
-      topics_completed_count: Number(topics_completed_count),
-      total_topics_count: Number(total_topics_count),
-      most_learned_libs_query,
+      most_learned_libs: most_learned_libs_query || [],
+      topics_completed_count: Number(
+        left_to_learn_query?.topics_completed_count,
+      ),
+      total_topics_count: Number(left_to_learn_query?.total_topics_count),
     };
   }
 }

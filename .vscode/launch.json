@@ -16,7 +16,7 @@
         "--inspect-brk",
         "--allow-all"
       ],
-      "args": [],
+      "args": ["--stats"],
       "attachSimplePort": 9229
     }
   ]
