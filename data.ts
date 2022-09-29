@@ -15,6 +15,12 @@ type Library = {
   description?: string;
 };
 
+type Stats = {
+  most_learned_libs: { name: string; count: number }[];
+  topics_completed_count: number;
+  total_topics_count: number;
+};
+
 export class Model {
   db: DB;
 
@@ -395,7 +401,7 @@ export class Model {
    * - Libraries with most topics learned
    * - How long since our last learned topic
    */
-  get_stats() {
+  get_stats(): Stats {
     const left_to_learn_query = this.db.prepareQuery(`
       SELECT 
         count(topics_completed.topic_id) AS topics_completed_count,
@@ -419,10 +425,7 @@ export class Model {
     `);
 
     return {
-      most_learned_libs: most_learned_libs_query as {
-        count: number;
-        name: string;
-      }[],
+      most_learned_libs: most_learned_libs_query as Stats["most_learned_libs"],
       topics_completed_count: Number(
         left_to_learn_query?.topics_completed_count,
       ),
